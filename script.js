@@ -28,12 +28,12 @@ function applyPreferences() {
 
   if (fontSize) {
     document.body.style.fontSize = fontSize + "px";
-    document.getElementById("fontsize").value = fontSize;
+    document.getElementById("fontsize").value = "18px" ;
   }
 
   if (fontColor) {
     document.body.style.color = fontColor;
-    document.getElementById("fontcolor").value = fontColor;
+    document.getElementById("fontcolor").value = "#ff0000";
   }
 }
 
