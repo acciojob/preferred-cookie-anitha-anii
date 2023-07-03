@@ -26,8 +26,8 @@ function setCookie(name, value, days) {
 
     // Function to apply the user's preferences
     function applyPreferences() {
-      var fontSizeInput = document.getElementById('font-size');
-      var fontColorInput = document.getElementById('font-color');
+      var fontSizeInput = document.getElementById('fontsize');
+      var fontColorInput = document.getElementById('fontcolor');
 
       var fontSize = fontSizeInput.value;
       var fontColor = fontColorInput.value;
@@ -36,13 +36,13 @@ function setCookie(name, value, days) {
       document.body.style.color = fontColor;
 
       // Store the preferences in cookies
-      setCookie('font-size', fontSize, 365);
-      setCookie('font-color', fontColor, 365);
+      setCookie('fontsize', fontSize, 365);
+      setCookie('fontcolor', fontColor, 365);
     }
 
     // Check if the user's preferences exist in cookies
-    var storedFontSize = getCookie('font-size');
-    var storedFontColor = getCookie('font-color');
+    var storedFontSize = getCookie('fontsize');
+    var storedFontColor = getCookie('fontcolor');
 
     if (storedFontSize && storedFontColor) {
       // Apply the stored preferences
@@ -50,8 +50,8 @@ function setCookie(name, value, days) {
       document.body.style.color = storedFontColor;
 
       // Set the input values to the stored preferences
-      document.getElementById('font-size').value = storedFontSize;
-      document.getElementById('font-color').value = storedFontColor;
+      document.getElementById('fontsize').value = storedFontSize;
+      document.getElementById('fontcolor').value = storedFontColor;
     }
 
     // Add event listener to the apply button
