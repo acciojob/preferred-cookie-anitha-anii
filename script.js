@@ -1,54 +1,67 @@
-function setCookie(name, value, days) {
-  var expires = "";
-  if (days) {
-    var date = new Date();
-    date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
-    expires = "; expires=" + date.toUTCString();
-  }
-  document.cookie = name + "=" + (value || "") + expires + "; path=/";
-}
-
-function getCookie(name) {
-  var nameEQ = name + "=";
-  var ca = document.cookie.split(';');
-  for (var i = 0; i < ca.length; i++) {
-    var c = ca[i];
-    while (c.charAt(0) === ' ') {
-      c = c.substring(1, c.length);
+// Function to set a cookie with the provided name, value, and expiration days
+    function setCookie(name, value, days) {
+      let expires = "";
+      if (days) {
+        const date = new Date();
+        date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
+        expires = "; expires=" + date.toUTCString();
+      }
+      document.cookie = name + "=" + value + expires + "; path=/";
     }
-    if (c.indexOf(nameEQ) === 0) {
-      return c.substring(nameEQ.length, c.length);
+
+    // Function to get the value of a cookie with the provided name
+    function getCookie(name) {
+      const cookieName = name + "=";
+      const cookies = document.cookie.split(';');
+      for (let i = 0; i < cookies.length; i++) {
+        let cookie = cookies[i].trim();
+        if (cookie.startsWith(cookieName)) {
+          return cookie.substring(cookieName.length, cookie.length);
+        }
+      }
+      return "";
     }
-  }
-  return null;
-}
 
-function applyPreferences() {
-  var fontSizeInput = document.getElementById('fontsize');
-  var fontColorInput = document.getElementById('fontcolor');
+    // Function to apply the saved preferences
+    function applyPreferences() {
+      const fontSizeInput = document.getElementById('fontSize');
+      const fontColorInput = document.getElementById('fontColor');
 
-  var fontSize = fontSizeInput.value;
-  var fontColor = fontColorInput.value;
+      const savedFontSize = getCookie('fontSize');
+      if (savedFontSize !== "") {
+        fontSizeInput.value = savedFontSize;
+        document.body.style.fontSize = savedFontSize + 'px';
+      }
 
-  document.body.style.fontSize = fontSize + 'px';
-  document.body.style.color = fontColor;
+      const savedFontColor = getCookie('fontColor');
+      if (savedFontColor !== "") {
+        fontColorInput.value = savedFontColor;
+        document.body.style.color = savedFontColor;
+      }
+    }
 
-  setCookie('fontsize', fontSize, 365);
-  setCookie('fontcolor', fontColor, 365);
-}
+    // Function to handle form submission
+    function handleSubmit(event) {
+      event.preventDefault();
 
-var storedFontSize = getCookie('fontsize');
-var storedFontColor = getCookie('fontcolor');
+      const fontSizeInput = document.getElementById('fontSize');
+      const fontColorInput = document.getElementById('fontColor');
 
-if (storedFontSize && storedFontColor) {
-  document.body.style.fontSize = storedFontSize + 'px';
-  document.body.style.color = storedFontColor;
-  document.getElementById('fontsize').value = storedFontSize;
-  document.getElementById('fontcolor').value = storedFontColor;
-}
+      const fontSize = fontSizeInput.value;
+      const fontColor = fontColorInput.value;
 
-document.addEventListener('DOMContentLoaded', function () {
-  var applyButton = document.querySelector("input[type='submit']");
-  applyButton.addEventListener('click', applyPreferences);
-});
+      // Save preferences using cookies
+      setCookie('fontSize', fontSize, 30);
+      setCookie('fontColor', fontColor, 30);
 
+      // Apply the saved preferences
+      document.body.style.fontSize = fontSize + 'px';
+      document.body.style.color = fontColor;
+    }
+
+    // Add event listener for form submission
+    const form = document.getElementById('customizeForm');
+    form.addEventListener('submit', handleSubmit);
+
+    // Apply the saved preferences on page load
+    window.addEventListener('load', applyPreferences);
