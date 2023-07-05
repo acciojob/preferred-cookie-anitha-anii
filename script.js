@@ -24,16 +24,16 @@
 
     // Function to apply the saved preferences
     function applyPreferences() {
-      const fontSizeInput = document.getElementById('fontSize');
-      const fontColorInput = document.getElementById('fontColor');
+      const fontSizeInput = document.getElementById('fontsize');
+      const fontColorInput = document.getElementById('fontcolor');
 
-      const savedFontSize = getCookie('fontSize');
+      const savedFontSize = getCookie('fontsize');
       if (savedFontSize !== "") {
         fontSizeInput.value = savedFontSize;
         document.body.style.fontSize = savedFontSize + 'px';
       }
 
-      const savedFontColor = getCookie('fontColor');
+      const savedFontColor = getCookie('fontcolor');
       if (savedFontColor !== "") {
         fontColorInput.value = savedFontColor;
         document.body.style.color = savedFontColor;
@@ -44,19 +44,19 @@
     function handleSubmit(event) {
       event.preventDefault();
 
-      const fontSizeInput = document.getElementById('fontSize');
-      const fontColorInput = document.getElementById('fontColor');
+      const fontSizeInput = document.getElementById('fontsize');
+      const fontColorInput = document.getElementById('fontcolor');
 
-      const fontSize = fontSizeInput.value;
-      const fontColor = fontColorInput.value;
+      const fontsize = fontSizeInput.value;
+      const fontcolor = fontColorInput.value;
 
       // Save preferences using cookies
-      setCookie('fontSize', fontSize, 30);
-      setCookie('fontColor', fontColor, 30);
+      setCookie('fontsize', fontsize, 30);
+      setCookie('fontcolor', fontcolor, 30);
 
       // Apply the saved preferences
-      document.body.style.fontSize = fontSize + 'px';
-      document.body.style.color = fontColor;
+      document.body.style.fontSize = fontsize + 'px';
+      document.body.style.color = fontcolor;
     }
 
     // Add event listener for form submission
@@ -65,3 +65,4 @@
 
     // Apply the saved preferences on page load
     window.addEventListener('load', applyPreferences);
+
